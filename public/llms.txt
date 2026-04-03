@@ -1,0 +1,59 @@
+# Business — Generative Engine Optimization Map
+
+---
+
+## Pages
+
+### בית
+https://example.com
+ארבל סוכנויות היא סוכנות הרכבים המובילה שלכם לקניית רכב משפחתי חדש במחיר הטוב ביותר. בואו לגלות מגוון עצום של דגמים ושירות אישי שלא תמצאו בשום מקום אחר.
+
+### פתרונות
+https://example.com/solutions
+גלו את מגוון פתרונות הרכב של ארבל סוכנויות — מימון גמיש, ליסינג, ביטוח ועוד. כל מה שצריך כדי לצאת לדרך בביטחון, במקום אחד ועם ליווי מקצועי לאורך כל הדרך.
+
+### אודות
+https://example.com/about
+ארבל סוכנויות רכבים נוסדה מתוך אהבה אמיתית לרכב ולשירות אנושי. הכירו את הצוות המקצועי שלנו, את הערכים שמנחים אותנו ואת המחויבות שלנו לכל לקוח ולקוח בנפרד.
+
+### צור קשר
+https://example.com/contact
+יש לכם שאלה על קניית רכב משפחתי חדש? צוות ארבל סוכנויות זמין עבורכם עכשיו. צרו קשר בטלפון, במייל או בטופס המהיר ונחזור אליכם בהקדם עם הצעה שתשמח אתכם.
+
+### Products
+https://example.com/products
+המוצרים שלנו - ארבל סוכנויות
+
+### Product Detail
+https://example.com/product/:slug
+פרטי המוצר - ארבל סוכנויות
+
+### Category
+https://example.com/category/:slug
+מוצרים - ארבל סוכנויות
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Business
+---
+
+# Additional Resources
+
+- **Sitemap**: https://example.com/sitemap.xml
+- **Robots.txt**: https://example.com/robots.txt
