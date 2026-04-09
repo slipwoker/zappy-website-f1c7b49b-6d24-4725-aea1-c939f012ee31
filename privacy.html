@@ -224,67 +224,6 @@
     
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style id="zappy-legal-page-styles">
-    /* Legal Page Original Styles */
-    
-        .legal-page-wrapper {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            direction: rtl;
-        }
-        .legal-page-wrapper .legal-container {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .legal-page-wrapper h1 {
-            color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-        .legal-page-wrapper h2 {
-            color: #34495e;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .legal-page-wrapper .last-updated {
-            background: #ecf0f1;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        .legal-page-wrapper .contact-info {
-            background: #e8f4fd;
-            border: 1px solid #3498db;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        .legal-page-wrapper ul {
-            padding-right: 20px;
-        }
-        .legal-page-wrapper li {
-            margin-bottom: 8px;
-        }
-        .legal-page-wrapper .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .legal-page-wrapper .back-link:hover {
-            text-decoration: underline;
-        }
-    
-    </style>
     <!-- Cookie Consent -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
@@ -306,8 +245,8 @@
       .sub-menu a:hover { background-color: #f5f5f5; }
       /* RTL (Hebrew/Arabic) dropdown positioning */
       [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
-      /* Hide empty dropdown menus */
-      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
       /* Desktop: show submenu on Menu Group hover */
       li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
       /* Menu Group title styling */
@@ -316,7 +255,7 @@
       /* ========== MOBILE SUBMENU STYLES ========== */
       @media (max-width: 768px) {
         .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
-        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        .sub-menu.mobile-expanded { max-height: 60vh !important; overflow-y: auto !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
         [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
         /* Disable hover behavior on mobile */
         .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -346,13 +285,44 @@
 </head>
 <body>
 
+
+    <div class="mobile-search-panel" id="mobile-search-panel">
+      <div class="search-wrapper">
+        <input type="text" id="mobile-search-input" placeholder="חיפוש מוצרים..." autocomplete="off">
+        <button class="search-submit" id="mobile-search-submit" title="חיפוש">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="close-search" id="close-mobile-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="search-results" id="mobile-search-results"></div>
+    </div>
+  
+<script>window.ZAPPY_WEBSITE_ID = "f1c7b49b-6d24-4725-aea1-c939f012ee31";window.ZAPPY_API_BASE = (window.location.pathname.includes('/preview') ? "https://api.zappy5.com" : "https://api.zappy5.com");</script>
     <header class="index-testimonials-header">
       <span class="index-testimonials-eyebrow">לקוחות מספרים</span>
       <h2 class="index-testimonials-title">אמון שנבנה על ניסיון אמיתי</h2>
       <p class="index-testimonials-subtitle">בסוכנות רכבים ארבל סוכנויות, כל עסקה מתחילה ומסתיימת ביחס אישי, מקצועי ומדויק.</p>
-    </header>
+    <div class="nav-ecommerce-icons nav-icons-left"><div class="nav-search-box">
+    <input type="text" class="nav-search-input" id="nav-search-input" placeholder="חיפוש מוצרים..." autocomplete="off">
+    <button class="nav-search-btn" id="nav-search-btn" title="חיפוש">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <div class="nav-search-results" id="nav-search-results"></div>
+  </div></div><div class="nav-ecommerce-icons nav-icons-right"><button class="nav-search-toggle" id="mobile-search-toggle" title="חיפוש"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button></div></header>
+
+    <nav class="zappy-catalog-menu rtl" id="zappy-catalog-menu" dir="rtl" style="display:none">
+      <div class="catalog-menu-container">
+        <a href="/products" class="catalog-menu-item catalog-menu-all">כל המוצרים</a>
+        <div class="catalog-menu-categories" id="zappy-category-links">
+          <!-- Categories will be loaded dynamically -->
+        </div>
+      </div>
+    </nav>
+  
     <main>
-    <div class="legal-page-wrapper"><div class="legal-container">
+    <section class="legal-page-content privacy-policy"><div class="container">
         <h1>מדיניות פרטיות</h1>
         
         <div class="last-updated">
@@ -430,7 +400,7 @@
         </div>
 
         
-    </div></div>
+    </div></section>
     </main>
     <footer class="site-footer" dir="rtl">
   <div class="footer-top">
